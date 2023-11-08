@@ -8,7 +8,10 @@ class ResourceManager
 
     public:
     ResourceManager() : resource(new Resource()){}
-    ResourceManager(const ResourceManager& res_man_in) : resource(new Resource(*res_man_in.resource)){}
+    ResourceManager(const ResourceManager& res_man_in){
+        resource = new Resource();
+        *this = res_man_in;
+    }
     ~ResourceManager(){
         delete resource;
     }
