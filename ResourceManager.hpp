@@ -2,34 +2,36 @@
 
 #include "Resource.hpp"
 
-
 class ResourceManager
 {
-
     public:
-    ResourceManager() : resource(new Resource()){}
-    ResourceManager(const ResourceManager& res_man_in){
+    ResourceManager(){
         resource = new Resource();
-        *this = res_man_in;
+    }
+    ResourceManager(const ResourceManager& rm){
+        resource = new Resource();
+        *this = rm;
+    }
+    ResourceManager(const ResourceManager&& rm){
+        resource = new Resource();
+        *this = std::move(rm);
     }
     ~ResourceManager(){
         delete resource;
     }
 
-    ResourceManager& operator=(const ResourceManager& res_man_in){
-        if (this == &res_man_in){
-            return *this;
+    ResourceManager& operator=(const ResourceManager& rm){
+        if(&rm != this){
+            this->resource->tab = rm.resource->tab;
         }
-
-        delete resource;
-        resource = new Resource();
-        return *this = res_man_in;
+        return *this;
     }
 
     double get(){
-        resource->get();
+        return resource -> get();
     }
 
     private:
-    Resource* resource; 
+    Resource* resource = nullptr;
+   
 };
