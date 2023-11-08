@@ -16,6 +16,16 @@ class ResourceManager
         delete resource;
     }
 
+    ResourceManager& operator=(const ResourceManager& res_man_in){
+        if (this == &res_man_in){
+            return *this;
+        }
+
+        delete resource;
+        resource = new Resource();
+        return *this = res_man_in;
+    }
+
     double get(){
         resource->get();
     }
